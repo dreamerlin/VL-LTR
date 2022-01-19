@@ -53,8 +53,10 @@ def train_one_epoch(model: torch.nn.Module, criterion: DistillationLoss,
     for samples, targets in metric_logger.log_every(data_loader, print_freq, header):
         samples = samples.to(device, non_blocking=True)
         targets = targets.to(device, non_blocking=True)
+        # import pdb; pdb.set_trace()
 
         if pretrain_cvlp:
+            # import pdb; pdb.set_trace()
             idxs = [np.random.randint(sent_idxs[t]) for t in targets]
             tokens = torch.stack([text_tokens[targets[i]][idxs[i]] for i in range(len(targets))])
             tokens = tokens.to(device, non_blocking=True)
@@ -340,6 +342,8 @@ def calc_class_acc(data_loader, model, device, args=None, tokens=None, prefix='v
 def multi_label_acc1(output: torch.Tensor, target: torch.Tensor):
     # target is a matrix of [0,1] with the same shape as output
     # print("multi_label_acc1:", target.shape)
+    # import pdb;
+    # pdb.set_trace()
     assert output.shape == target.shape
     _, pred = output.topk(1, 1, True, True)
     pred = pred.t().squeeze()

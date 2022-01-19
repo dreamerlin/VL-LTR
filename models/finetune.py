@@ -326,6 +326,8 @@ class LGR(nn.Module):
             vis_backbone_path.endswith('ViT-B-16.pt'):
             pretrained_state_dict = torch.jit.load(
                 vis_backbone_path, map_location=torch.device('cpu')).state_dict()
+            # pretrained_state_dict = torch.load(
+            #     vis_backbone_path, map_location=torch.device('cpu')).state_dict()
         else:
             pretrained_state_dict = torch.load(
                 vis_backbone_path, map_location=torch.device('cpu'))['model']

@@ -223,6 +223,7 @@ def get_args_parser():
                         help="Master node (rank 0)'s free port that needs to "
                              "be used for communication during distributed "
                              "training")
+    parser.add_argument('--local_rank', type=int, default=0)
     return parser
 
 
@@ -383,6 +384,7 @@ def main(args):
         if args.resume.endswith('RN50.pt'):
             checkpoint = {}
             checkpoint['model'] = torch.jit.load(args.resume, map_location='cpu').state_dict()
+            # checkpoint['model'] = torch.load(args.resume, map_location='cpu').state_dict()
         elif args.resume.startswith('https'):
             checkpoint = torch.hub.load_state_dict_from_url(
                 args.resume, map_location='cpu', check_hash=True)

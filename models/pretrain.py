@@ -329,6 +329,8 @@ class CVLP(nn.Module):
 
         if pretrained_clip is not None:
             pretrained_state_dict = torch.jit.load(pretrained_clip, map_location=torch.device('cpu')).state_dict()
+            # import pdb; pdb.set_trace()
+            # pretrained_state_dict = torch.load(pretrained_clip, map_location=torch.device('cpu'))['model']
             for key in ["input_resolution", "context_length", "vocab_size"]:
                 if key in pretrained_state_dict:
                     del pretrained_state_dict[key]
@@ -376,6 +378,7 @@ class CVLP(nn.Module):
 
     def forward(self, x):
         image, text = x
+        # import pdb; pdb.set_trace()
         image_features = self.encode_image(image)
         text_features = self.encode_text(text)
 
@@ -389,6 +392,8 @@ class CVLP(nn.Module):
 
         # cosine similarity as logits
         logit_scale = self.logit_scale.exp()
+        # import pdb;
+        # pdb.set_trace()
         logits_per_image = logit_scale * image_features @ text_features.t()
         logits_per_text = logits_per_image.transpose(0, 1)
 

@@ -1,5 +1,6 @@
 import os
 from PIL import Image
+import numpy as np
 
 
 class ImageList(object):
@@ -43,6 +44,7 @@ class ImageList(object):
 
     def get_sample(self, idx):
         img = Image.open(self.fns[idx])
+        # print(np.array(img).shape) # (256, 256, 3)
         img = img.convert('RGB')
         if self.has_labels:
             target = self.labels[idx]

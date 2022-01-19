@@ -2,6 +2,8 @@
 cfg = dict(
     model='CVLP_r50',
     desc_path='data/places',
+    # pretrained_clip='modelzoo/places_pretrain_r50/checkpoint.pth',
+    # pretrained_clip='places_pretrain_r50/checkpoint.pth',
     pretrained_clip='pretrained/RN50.pt',
     context_length=75,
     pretrain_cvlp=True,
@@ -19,7 +21,8 @@ cfg = dict(
     min_lr=0.,
 
     epochs=50,
-    batch_size=256,
+    # batch_size=256,
+    batch_size=48,
 
     repeated_aug=False,
     mixup=0.,

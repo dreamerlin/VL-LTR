@@ -56,9 +56,12 @@ class ClassificationDataset(Dataset):
                                     json_file='%s2018.json' % split,
                                     select=select)
         elif dataset == 'PLACES_LT':
+            # self.data_source = ImageList(root='data/places',
+            #                             list_file='data/places/Places_LT_%s.txt' % split,
+            #                             select=select)
             self.data_source = ImageList(root='data/places',
-                                        list_file='data/places/Places_LT_%s.txt' % split,
-                                        select=select)
+                                         list_file='data/places/Places_LT_test_new.txt',
+                                         select=select)
         
         self.text_tokens = get_sentence_tokens(dataset, desc_path, context_length)
         self.end_idxs = [len(sents) for sents in self.text_tokens]
@@ -72,6 +75,7 @@ class ClassificationDataset(Dataset):
 
     def __getitem__(self, idx):
         img, target = self.data_source.get_sample(idx)
+        print(img.shape)
         if self.pipeline is not None:
             img = self.pipeline(img)
 
